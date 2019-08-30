@@ -28,7 +28,7 @@ public class MainView extends VerticalLayout {
                 final Icon deleteButton = new Icon(VaadinIcon.CLOSE_CIRCLE);
                 final HorizontalLayout todoElementLayout = new HorizontalLayout(checkbox, deleteButton);
 
-                deleteButton.setSize("10px");
+                deleteButton.setSize("12px");
                 todoElementLayout.setAlignItems(Alignment.CENTER);
                 todosList.add(todoElementLayout);
                 todoField.setValue("");
