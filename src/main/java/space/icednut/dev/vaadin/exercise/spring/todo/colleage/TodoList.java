@@ -29,4 +29,8 @@ public class TodoList extends VerticalLayout implements TodoAppParticipant {
 
         add(todoListElement);
     }
+
+    public void deleteTodo(TodoListElement todoListElement) {
+        remove(todoListElement);
+    }
 }

@@ -6,8 +6,8 @@ import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.component.orderedlayout.FlexComponent;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import org.springframework.util.StringUtils;
-import space.icednut.dev.vaadin.exercise.spring.todo.event.TodoAppEvent;
 import space.icednut.dev.vaadin.exercise.spring.todo.TodoAppParticipant;
+import space.icednut.dev.vaadin.exercise.spring.todo.event.TodoAppEvent;
 import space.icednut.dev.vaadin.exercise.spring.todo.event.TodoAppEventListener;
 import space.icednut.dev.vaadin.exercise.spring.todo.exception.InvalidTodoMessageException;
 import space.icednut.dev.vaadin.exercise.spring.todo.mediator.IMediator;
@@ -45,5 +45,6 @@ public class TodoListElement extends HorizontalLayout implements TodoAppParticip
 
     @Override
     public void execute() {
+        mediator.deleteTodo(this);
     }
 }

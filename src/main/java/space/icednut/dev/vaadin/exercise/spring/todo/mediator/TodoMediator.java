@@ -37,5 +37,6 @@ public class TodoMediator implements IMediator {
 
     @Override
     public void deleteTodo(TodoListElement targetTodoListElement) {
+        todoList.deleteTodo(targetTodoListElement);
     }
 }
