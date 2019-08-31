@@ -9,5 +9,5 @@ import space.icednut.dev.vaadin.exercise.spring.todo.TodoAppParticipant;
 @FunctionalInterface
 public interface TodoAppEventListener<SOURCE extends TodoAppParticipant> {
 
-    void handle(SOURCE source);
+    void handle(TodoAppEvent<SOURCE> source);
 }

@@ -3,6 +3,7 @@ package space.icednut.dev.vaadin.exercise.spring.todo.colleage;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.textfield.TextField;
+import space.icednut.dev.vaadin.exercise.spring.todo.event.TodoAppEvent;
 import space.icednut.dev.vaadin.exercise.spring.todo.TodoAppParticipant;
 import space.icednut.dev.vaadin.exercise.spring.todo.event.TodoAppEventListener;
 import space.icednut.dev.vaadin.exercise.spring.todo.mediator.IMediator;
@@ -17,13 +18,14 @@ public class TodoInput extends HorizontalLayout implements TodoAppParticipant {
     private final Button addButton;
     private final IMediator mediator;
 
-    public TodoInput(TodoAppEventListener<TodoInput> listner, IMediator mediator) {
+    public TodoInput(IMediator mediator, TodoAppEventListener<? extends TodoAppParticipant> actionListener) {
         this.mediator = mediator;
         this.todoField = new TextField();
         this.addButton = new Button("Add");
 
+        todoField.setRequired(true);
         mediator.registerTodoInput(this);
-        addButton.addClickListener(event -> listner.handle(this));
+        addButton.addClickListener(event -> actionListener.handle(TodoAppEvent.of(this)));
         add(todoField, addButton);
     }
 

@@ -18,4 +18,5 @@ public interface IMediator {
 
     void addTodo(String todoMessage);
 
+    void deleteTodo(TodoListElement targetTodoListElement);
 }

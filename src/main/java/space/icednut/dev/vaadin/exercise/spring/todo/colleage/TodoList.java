@@ -2,6 +2,7 @@ package space.icednut.dev.vaadin.exercise.spring.todo.colleage;
 
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import space.icednut.dev.vaadin.exercise.spring.todo.TodoAppParticipant;
+import space.icednut.dev.vaadin.exercise.spring.todo.event.TodoAppEventListener;
 import space.icednut.dev.vaadin.exercise.spring.todo.mediator.IMediator;
 
 /**
@@ -11,9 +12,11 @@ import space.icednut.dev.vaadin.exercise.spring.todo.mediator.IMediator;
 public class TodoList extends VerticalLayout implements TodoAppParticipant {
 
     private final IMediator mediator;
+    private final TodoAppEventListener<? extends TodoAppParticipant> actionListener;
 
-    public TodoList(IMediator mediator) {
+    public TodoList(IMediator mediator, TodoAppEventListener<? extends TodoAppParticipant> actionListener) {
         this.mediator = mediator;
+        this.actionListener = actionListener;
         mediator.registerTodoList(this);
     }
 
@@ -22,9 +25,7 @@ public class TodoList extends VerticalLayout implements TodoAppParticipant {
     }
 
     public void addTodo(String todoMessage) {
-        final TodoListElement todoListElement = new TodoListElement(todoMessage, targetTodoListElement -> {
-            System.out.println("삭제 핸들링");
-        }, mediator);
+        final TodoListElement todoListElement = new TodoListElement(todoMessage, mediator, actionListener);
 
         add(todoListElement);
     }

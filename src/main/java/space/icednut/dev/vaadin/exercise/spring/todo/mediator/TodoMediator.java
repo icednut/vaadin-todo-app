@@ -34,4 +34,8 @@ public class TodoMediator implements IMediator {
         todoList.addTodo(todoMessage);
         todoInput.clearField();
     }
+
+    @Override
+    public void deleteTodo(TodoListElement targetTodoListElement) {
+    }
 }
