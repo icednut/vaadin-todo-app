@@ -29,6 +29,7 @@ public class MainView extends VerticalLayout {
                 final HorizontalLayout todoElementLayout = new HorizontalLayout(checkbox, deleteButton);
 
                 deleteButton.setSize("15px");
+                deleteButton.addClickListener(deleteEvent -> todosList.remove(todoElementLayout));
                 todoElementLayout.setAlignItems(Alignment.CENTER);
                 todosList.add(todoElementLayout);
                 todoField.setValue("");
