@@ -7,6 +7,8 @@ import com.vaadin.flow.component.orderedlayout.FlexComponent;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import org.springframework.util.StringUtils;
 import space.icednut.dev.vaadin.exercise.spring.todo.TodoAppParticipant;
+import space.icednut.dev.vaadin.exercise.spring.todo.command.TodoAction;
+import space.icednut.dev.vaadin.exercise.spring.todo.command.TodoDeleteAction;
 import space.icednut.dev.vaadin.exercise.spring.todo.event.TodoAppEvent;
 import space.icednut.dev.vaadin.exercise.spring.todo.event.TodoAppEventListener;
 import space.icednut.dev.vaadin.exercise.spring.todo.exception.InvalidTodoMessageException;
@@ -22,14 +24,19 @@ import java.util.Optional;
  **/
 public class TodoListElement extends HorizontalLayout implements TodoAppParticipant {
 
+    private final Long todoId;
     private final Checkbox todo;
     private final Icon deleteButton;
     private final IMediator mediator;
+    private final String todoMessage;
 
-    public TodoListElement(String todoMessage, IMediator mediator, TodoAppEventListener<? extends TodoAppParticipant> actionListener) {
+    public TodoListElement(Long todoId, String todoMessage, IMediator mediator, TodoAppEventListener<? extends TodoAppParticipant> actionListener) {
         Optional.ofNullable(todoMessage)
                 .filter(StringUtils::hasText)
                 .orElseThrow(() -> new InvalidTodoMessageException("Todo 메세지가 비어있습니다."));
+
+        this.todoId = todoId;
+        this.todoMessage = todoMessage;
         this.mediator = mediator;
         String now = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
         this.todo = new Checkbox(String.format("[%s] %s", now, todoMessage));
@@ -43,8 +50,16 @@ public class TodoListElement extends HorizontalLayout implements TodoAppParticip
         add(todo, deleteButton);
     }
 
+    public Long getTodoId() {
+        return todoId;
+    }
+
+    public String getTodoMessage() {
+        return todoMessage;
+    }
+
     @Override
     public void execute() {
-        mediator.deleteTodo(this);
+        mediator.deleteTodo(todoId);
     }
 }

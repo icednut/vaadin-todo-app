@@ -1,8 +1,11 @@
 package space.icednut.dev.vaadin.exercise.spring.todo;
 
+import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import space.icednut.dev.vaadin.exercise.spring.todo.colleage.TodoInput;
 import space.icednut.dev.vaadin.exercise.spring.todo.colleage.TodoList;
+import space.icednut.dev.vaadin.exercise.spring.todo.colleage.TodoRedoControl;
+import space.icednut.dev.vaadin.exercise.spring.todo.colleage.TodoUndoControl;
 import space.icednut.dev.vaadin.exercise.spring.todo.event.TodoAppEventListener;
 import space.icednut.dev.vaadin.exercise.spring.todo.mediator.IMediator;
 import space.icednut.dev.vaadin.exercise.spring.todo.mediator.TodoMediator;
@@ -22,8 +25,10 @@ public class TodoLayout extends VerticalLayout {
         };
 
         final TodoInput todoInput = new TodoInput(mediator, actionListener);
+        final TodoUndoControl todoUndoControl = new TodoUndoControl(mediator, actionListener);
+        final TodoRedoControl todoRedoControl = new TodoRedoControl(mediator, actionListener);
         final TodoList todoList = new TodoList(mediator, actionListener);
 
-        add(todoInput, todoList);
+        add(new HorizontalLayout(todoUndoControl, todoRedoControl, todoInput), todoList);
     }
 }

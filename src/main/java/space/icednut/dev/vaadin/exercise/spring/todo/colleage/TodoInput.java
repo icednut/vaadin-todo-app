@@ -4,6 +4,8 @@ import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.textfield.TextField;
 import space.icednut.dev.vaadin.exercise.spring.todo.TodoAppParticipant;
+import space.icednut.dev.vaadin.exercise.spring.todo.command.TodoAction;
+import space.icednut.dev.vaadin.exercise.spring.todo.command.TodoInsertAction;
 import space.icednut.dev.vaadin.exercise.spring.todo.event.TodoAppEvent;
 import space.icednut.dev.vaadin.exercise.spring.todo.event.TodoAppEventListener;
 import space.icednut.dev.vaadin.exercise.spring.todo.mediator.IMediator;
@@ -31,8 +33,7 @@ public class TodoInput extends HorizontalLayout implements TodoAppParticipant {
 
     @Override
     public void execute() {
-        final String todoMessage = todoField.getValue();
-        mediator.addTodo(todoMessage);
+        mediator.addTodo(todoField.getValue());
     }
 
     public void clearField() {

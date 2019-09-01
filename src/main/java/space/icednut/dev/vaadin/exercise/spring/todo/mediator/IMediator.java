@@ -1,8 +1,10 @@
 package space.icednut.dev.vaadin.exercise.spring.todo.mediator;
 
+import space.icednut.dev.vaadin.exercise.spring.todo.TodoMessage;
 import space.icednut.dev.vaadin.exercise.spring.todo.colleage.TodoInput;
 import space.icednut.dev.vaadin.exercise.spring.todo.colleage.TodoList;
 import space.icednut.dev.vaadin.exercise.spring.todo.colleage.TodoListElement;
+import space.icednut.dev.vaadin.exercise.spring.todo.command.TodoInsertAction;
 
 /**
  * @author will.109
@@ -16,7 +18,15 @@ public interface IMediator {
 
     void registerTodoListElement(TodoListElement todoListElement);
 
-    void addTodo(String todoMessage);
+    TodoMessage addTodo(String todoMessage);
 
-    void deleteTodo(TodoListElement targetTodoListElement);
+    TodoMessage deleteTodo(Long todoId);
+
+    void addTodoForUndo(String todoMessage);
+
+    void deleteTodoForUndo(Long todoId);
+
+    void undo();
+
+    void redo();
 }
