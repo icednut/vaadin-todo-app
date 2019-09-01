@@ -1,6 +1,5 @@
 package space.icednut.dev.vaadin.exercise.spring.command;
 
-import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import space.icednut.dev.vaadin.exercise.spring.message.TodoMessage;
 
 import java.util.Optional;

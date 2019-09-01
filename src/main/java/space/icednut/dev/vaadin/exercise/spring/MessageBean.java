@@ -1,7 +1,8 @@
 package space.icednut.dev.vaadin.exercise.spring;
 
-import java.time.LocalTime;
 import org.springframework.stereotype.Service;
+
+import java.time.LocalTime;
 
 @Service
 public class MessageBean {

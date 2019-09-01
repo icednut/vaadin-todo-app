@@ -3,13 +3,9 @@ package space.icednut.dev.vaadin.exercise.spring;
 import com.vaadin.flow.component.ClickEvent;
 import com.vaadin.flow.component.ComponentEventListener;
 import com.vaadin.flow.component.button.Button;
-import com.vaadin.flow.component.checkbox.Checkbox;
 import com.vaadin.flow.component.icon.Icon;
-import com.vaadin.flow.component.icon.VaadinIcon;
-import com.vaadin.flow.component.orderedlayout.FlexComponent;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
-import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.server.PWA;
 import org.springframework.util.StringUtils;
@@ -38,7 +34,6 @@ public class MainView extends VerticalLayout {
     private final Button redoButton = new Button("Redo");
 
     public MainView() {
-
         undoButton.addClickListener(event -> {
             if (undoStack.isEmpty()) {
                 return;
