@@ -14,9 +14,7 @@ public interface IMediator {
 
     void registerTodoList(TodoList todoList);
 
-    void registerTodoListElement(TodoListElement todoListElement);
+    void addTodo();
 
-    void addTodo(String todoMessage);
-
-    void deleteTodo(TodoListElement targetTodoListElement);
+    void deleteTodo(Long todoId);
 }

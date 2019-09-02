@@ -1,8 +1,8 @@
 package space.icednut.dev.vaadin.exercise.spring.todo.mediator;
 
+import space.icednut.dev.vaadin.exercise.spring.todo.TodoMessage;
 import space.icednut.dev.vaadin.exercise.spring.todo.colleage.TodoInput;
 import space.icednut.dev.vaadin.exercise.spring.todo.colleage.TodoList;
-import space.icednut.dev.vaadin.exercise.spring.todo.colleage.TodoListElement;
 
 /**
  * @author will.109
@@ -12,7 +12,6 @@ public class TodoMediator implements IMediator {
 
     private TodoInput todoInput;
     private TodoList todoList;
-    private TodoListElement todoListElement;
 
     @Override
     public void registerTodoInput(TodoInput todoInput) {
@@ -25,18 +24,15 @@ public class TodoMediator implements IMediator {
     }
 
     @Override
-    public void registerTodoListElement(TodoListElement todoListElement) {
-        this.todoListElement = todoListElement;
-    }
+    public void addTodo() {
+        TodoMessage todoMessage = todoInput.getCurrentTodoMessage();
 
-    @Override
-    public void addTodo(String todoMessage) {
         todoList.addTodo(todoMessage);
         todoInput.clearField();
     }
 
     @Override
-    public void deleteTodo(TodoListElement targetTodoListElement) {
-        todoList.deleteTodo(targetTodoListElement);
+    public void deleteTodo(Long todoId) {
+        todoList.deleteTodo(todoId);
     }
 }
