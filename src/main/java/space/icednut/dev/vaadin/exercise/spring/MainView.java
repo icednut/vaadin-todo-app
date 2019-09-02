@@ -15,11 +15,11 @@ import org.springframework.util.StringUtils;
 @PWA(name = "Design Pattern Exercise Command Pattern", shortName = "Command Pattern Exercise")
 public class MainView extends VerticalLayout {
 
-    public MainView() {
-        final VerticalLayout todosList = new VerticalLayout();
-        final TextField todoField = new TextField();
-        final Button addButton = new Button("Add");
+    final VerticalLayout todosList = new VerticalLayout();
+    final TextField todoField = new TextField();
+    final Button addButton = new Button("Add");
 
+    public MainView() {
         addButton.addClickListener(event -> {
             final String todoValue = todoField.getValue();
 
