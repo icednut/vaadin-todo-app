@@ -95,8 +95,8 @@ public class MainView extends VerticalLayout {
                 return todoMessage;
             }, undoTodoMessageBody -> {
                 final TodoListElement undoTodoListElement = new TodoListElement(todoMessage);
+                final ComponentEventListener<ClickEvent<Icon>> deleteListener = getDeleteClickListener(undoTodoMessageBody, undoTodoListElement);
 
-                ComponentEventListener<ClickEvent<Icon>> deleteListener = getDeleteClickListener(undoTodoMessageBody, undoTodoListElement);
                 undoTodoListElement.addDeleteClickListener(deleteListener);
                 todosList.add(undoTodoListElement);
             });
