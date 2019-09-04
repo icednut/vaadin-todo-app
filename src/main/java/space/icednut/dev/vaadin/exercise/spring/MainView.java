@@ -36,9 +36,8 @@ public class MainView extends VerticalLayout {
         todosList.removeAll();
         restoredTodoMessageList.stream()
                 .forEach(restoredTodoMessage -> {
-                    final TodoListElement todoListElement = new TodoListElement(restoredTodoMessage, targetElement -> {
-                        todosList.remove(targetElement);
-                    });
+                    final TodoListElement todoListElement = new TodoListElement(restoredTodoMessage);
+                    todoListElement.addDeleteClickListener(deleteClickEvent -> todosList.remove(todoListElement));
                     todosList.add(todoListElement);
                 });
     });
@@ -60,9 +59,8 @@ public class MainView extends VerticalLayout {
                 lastState.add(todoMessage);
                 originator.setState(new ArrayList<>(lastState));
 
-                final TodoListElement todoListElement = new TodoListElement(todoMessage, targetElement -> {
-                    todosList.remove(targetElement);
-                });
+                final TodoListElement todoListElement = new TodoListElement(todoMessage);
+                todoListElement.addDeleteClickListener(deleteClickEvent -> todosList.remove(todoListElement));
                 todosList.add(todoListElement);
                 todoField.setValue("");
             }
