@@ -19,13 +19,13 @@ public class Originator {
         this.todoRestoreRenderer = todoRestoreRenderer;
     }
 
-    public void setState(List<String> todoMessageList) {
-        this.todoMessageListState = todoMessageList;
+    public void addState(String todoMessage) {
+        this.todoMessageListState.add(todoMessage);
     }
 
     public Memento saveToMemento() {
         System.out.println("save: " + totoMessageListString(todoMessageListState));
-        return new Memento(todoMessageListState);
+        return new Memento(new ArrayList<>(todoMessageListState));
     }
 
     public void restoreFromMemento(Memento memento) {

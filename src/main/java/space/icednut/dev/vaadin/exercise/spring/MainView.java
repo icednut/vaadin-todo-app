@@ -43,7 +43,6 @@ public class MainView extends VerticalLayout {
     });
     final Originator originator = new Originator(todoRestoreRenderer);
     final LinkedList<Memento> savedStates = new LinkedList<>();
-    final List<String> lastState = new ArrayList<>();
 
     public MainView() {
         saveButton.addClickListener(event -> {
@@ -56,8 +55,7 @@ public class MainView extends VerticalLayout {
             final String todoMessage = todoField.getValue();
 
             if (StringUtils.hasText(todoMessage)) {
-                lastState.add(todoMessage);
-                originator.setState(new ArrayList<>(lastState));
+                originator.addState(todoMessage);
 
                 final TodoListElement todoListElement = new TodoListElement(todoMessage);
                 todoListElement.addDeleteClickListener(deleteClickEvent -> todosList.remove(todoListElement));
