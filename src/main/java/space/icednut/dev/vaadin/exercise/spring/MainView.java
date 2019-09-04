@@ -10,7 +10,7 @@ import org.springframework.util.StringUtils;
 import space.icednut.dev.vaadin.exercise.component.TodoListElement;
 
 @Route
-@PWA(name = "Design Pattern Exercise Command Pattern", shortName = "Command Pattern Exercise")
+@PWA(name = "Plain Todo App", shortName = "PTA")
 public class MainView extends VerticalLayout {
 
     final VerticalLayout todosList = new VerticalLayout();
