@@ -9,33 +9,79 @@ import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.server.PWA;
+import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
+import space.icednut.dev.vaadin.exercise.spring.component.TodoListElement;
+import space.icednut.dev.vaadin.exercise.spring.memento.Memento;
+import space.icednut.dev.vaadin.exercise.spring.memento.Originator;
+import space.icednut.dev.vaadin.exercise.spring.observer.TodoRestoreRenderer;
+
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Route
-@PWA(name = "Design Pattern Exercise Command Pattern", shortName = "Command Pattern Exercise")
+@PWA(name = "Design Pattern Exercise Memento Pattern", shortName = "Memento Pattern Exercise")
 public class MainView extends VerticalLayout {
 
     final VerticalLayout todosList = new VerticalLayout();
     final TextField todoField = new TextField();
     final Button addButton = new Button("Add");
 
+    final Button saveButton = new Button("Save");
+    final Button restoreButton = new Button("Restore");
+    final TodoRestoreRenderer todoRestoreRenderer = new TodoRestoreRenderer(restoredTodoMessageList -> {
+        if (CollectionUtils.isEmpty(restoredTodoMessageList)) {
+            return;
+        }
+        todosList.removeAll();
+        restoredTodoMessageList.stream()
+                .forEach(restoredTodoMessage -> {
+                    final TodoListElement todoListElement = new TodoListElement(restoredTodoMessage, targetElement -> {
+                        todosList.remove(targetElement);
+                    });
+                    todosList.add(todoListElement);
+                });
+    });
+    final Originator originator = new Originator(todoRestoreRenderer);
+    final List<String> lastState = new ArrayList<>();
+    final LinkedList<Memento> savedStates = new LinkedList<>();
+
     public MainView() {
+        saveButton.addClickListener(event -> {
+            savedStates.add(originator.saveToMemento());
+        });
+        restoreButton.addClickListener(event -> {
+            originator.restoreFromMemento(savedStates.getLast());
+        });
         addButton.addClickListener(event -> {
-            final String todoValue = todoField.getValue();
+            final String todoMessage = todoField.getValue();
 
-            if (StringUtils.hasText(todoValue)) {
-                final Checkbox checkbox = new Checkbox(todoValue);
-                final Icon deleteButton = new Icon(VaadinIcon.CLOSE_CIRCLE);
-                final HorizontalLayout todoElementLayout = new HorizontalLayout(checkbox, deleteButton);
+            if (StringUtils.hasText(todoMessage)) {
+                lastState.add(todoMessage);
+                originator.setState(new ArrayList<>(lastState));
 
-                deleteButton.setSize("15px");
-                deleteButton.addClickListener(deleteEvent -> todosList.remove(todoElementLayout));
-                todoElementLayout.setAlignItems(Alignment.CENTER);
-                todosList.add(todoElementLayout);
+                final TodoListElement todoListElement = new TodoListElement(todoMessage, targetElement -> {
+                    todosList.remove(targetElement);
+                });
+                todosList.add(todoListElement);
                 todoField.setValue("");
             }
         });
 
-        add(todosList, new HorizontalLayout(todoField, addButton));
+        add(controlComponent(), todosList);
+    }
+
+    private HorizontalLayout controlComponent() {
+        final Icon icon = new Icon(VaadinIcon.ELLIPSIS_DOTS_V);
+        icon.setSize("14px");
+
+        final HorizontalLayout horizontalLayout = new HorizontalLayout(
+                new HorizontalLayout(todoField, addButton),
+                icon,
+                new HorizontalLayout(saveButton, restoreButton)
+        );
+
+        horizontalLayout.setAlignItems(Alignment.CENTER);
+        return horizontalLayout;
     }
 }
