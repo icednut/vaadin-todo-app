@@ -15,9 +15,7 @@ import space.icednut.dev.vaadin.exercise.spring.memento.Memento;
 import space.icednut.dev.vaadin.exercise.spring.memento.Originator;
 import space.icednut.dev.vaadin.exercise.spring.observer.TodoRestoreRenderer;
 
-import java.util.ArrayList;
 import java.util.LinkedList;
-import java.util.List;
 
 @Route
 @PWA(name = "Design Pattern Exercise Memento Pattern", shortName = "Memento Pattern Exercise")
