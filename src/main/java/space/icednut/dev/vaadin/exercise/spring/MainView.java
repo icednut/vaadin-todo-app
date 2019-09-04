@@ -1,7 +1,6 @@
 package space.icednut.dev.vaadin.exercise.spring;
 
 import com.vaadin.flow.component.button.Button;
-import com.vaadin.flow.component.checkbox.Checkbox;
 import com.vaadin.flow.component.icon.Icon;
 import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
@@ -16,8 +15,9 @@ import space.icednut.dev.vaadin.exercise.spring.memento.Memento;
 import space.icednut.dev.vaadin.exercise.spring.memento.Originator;
 import space.icednut.dev.vaadin.exercise.spring.observer.TodoRestoreRenderer;
 
-import java.util.*;
-import java.util.stream.Collectors;
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
 
 @Route
 @PWA(name = "Design Pattern Exercise Memento Pattern", shortName = "Memento Pattern Exercise")
@@ -43,8 +43,8 @@ public class MainView extends VerticalLayout {
                 });
     });
     final Originator originator = new Originator(todoRestoreRenderer);
-    final List<String> lastState = new ArrayList<>();
     final LinkedList<Memento> savedStates = new LinkedList<>();
+    final List<String> lastState = new ArrayList<>();
 
     public MainView() {
         saveButton.addClickListener(event -> {
